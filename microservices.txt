@@ -1,0 +1,85 @@
+MICROSERVICES VS MONOLITHIC ARCHITECTURE
+
+1. What is Microservices?
+- Microservices is an architectural style where an application is built as a collection of small, independent services.
+- Each service is responsible for a specific business capability.
+- Services communicate with each other using lightweight protocols (often HTTP/REST, gRPC, or messaging queues).
+- They can be developed, deployed, and scaled independently.
+
+2. Characteristics of Microservices
+- Decentralized data management (each service may have its own database).
+- Independent deployment (no need to redeploy the whole system).
+- Technology diversity (different services can use different programming languages or frameworks).
+- Fault isolation (failure in one service does not necessarily bring down the entire system).
+- Easier scaling (scale only the services that need more resources).
+
+3. What is Monolithic Architecture?
+- Monolithic architecture means the entire application is built as a single, unified codebase.
+- All modules (UI, business logic, data access) are tightly coupled and run as one process.
+- Deployment is done as a single unit (one big executable or package).
+- Scaling requires replicating the whole application.
+
+4. Differences Between Microservices and Monolithic
+
+| Aspect              | Monolithic                          | Microservices                        |
+|---------------------|-------------------------------------|--------------------------------------|
+| Structure           | Single codebase, tightly coupled    | Multiple independent services         |
+| Deployment          | One large unit                      | Independent deployment per service    |
+| Scalability         | Scale entire app                    | Scale specific services               |
+| Technology Choice   | Usually one stack                   | Different stacks per service possible |
+| Fault Isolation     | Failure can crash whole system      | Failure isolated to one service       |
+| Development Speed   | Slows down as app grows             | Faster, parallel development          |
+
+5. When to Use
+- Monolithic: Simple applications, small teams, quick initial development.
+- Microservices: Large, complex applications, need for scalability, multiple teams working independently.
+
+Summary:
+Microservices break down applications into smaller, manageable pieces that can evolve independently, while monolithic systems keep everything in one place, which is simpler at first but harder to maintain and scale as complexity grows.
+
+
+MICROSERVICES ARCHITECTURE
+
+1. Overview
+- Microservices architecture is a design approach where applications are built as a collection of small, independent services.
+- Each service handles a specific business function (e.g., user management, payment, inventory).
+- Services communicate with each other via APIs (REST, gRPC) or messaging systems (Kafka, RabbitMQ).
+
+2. Key Components
+- Services: Independent modules, each with its own logic and often its own database.
+- API Gateway: A single entry point that routes client requests to the appropriate microservice.
+- Databases: Each service may manage its own data store, ensuring loose coupling.
+- Service Registry: Keeps track of available services and their locations.
+- Communication: Services interact through synchronous calls (HTTP/gRPC) or asynchronous messaging (queues/events).
+- Monitoring & Logging: Centralized tools to track performance, errors, and service health.
+
+3. Architecture Flow
+- Client sends a request to the API Gateway.
+- Gateway routes the request to the correct microservice.
+- Microservice processes the request, possibly interacting with its own database or other services.
+- Response is sent back through the gateway to the client.
+
+4. Advantages
+- Scalability: Scale only the services that need more resources.
+- Flexibility: Different services can use different technologies.
+- Fault Isolation: Failure in one service does not crash the entire system.
+- Faster Development: Teams can work independently on different services.
+
+5. Challenges
+- Complexity: Managing many services requires strong DevOps practices.
+- Data Consistency: Each service having its own database can lead to consistency issues.
+- Communication Overhead: More network calls compared to monolithic systems.
+- Deployment & Monitoring: Requires advanced tools for orchestration (e.g., Kubernetes, Docker).
+
+6. Typical Tools & Technologies
+- Containers: Docker for packaging services.
+- Orchestration: Kubernetes for managing deployment and scaling.
+- API Gateway: Kong, NGINX, or AWS API Gateway.
+- Messaging: Kafka, RabbitMQ for asynchronous communication.
+- Monitoring: Prometheus, ELK stack, Grafana.
+
+Summary:
+Microservices architecture breaks applications into independent services that communicate via APIs. This enables scalability, flexibility, and fault isolation but introduces complexity in deployment, monitoring, and data consistency.
+
+
+
