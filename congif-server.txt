@@ -1,0 +1,69 @@
+SPRING CLOUD CONFIG SERVER -
+
+1. Config Server Setup
+- server.port: 8089 → Config Server runs on port 8089.
+- spring.profiles.active: native → Config Server reads configuration files from the local file system (resources/config folder).
+- @EnableConfigServer annotation must be added in the main class of the Config Server project.
+
+2. Config Folder
+- All configuration files are stored inside resources/config.
+- Each microservice has its own configuration file.
+- File names must match the spring.application.name property of the microservice.
+
+3. Rules for File Naming
+- File name = spring.application.name of the microservice.
+- Examples:
+  - discovery-service.yml → for service with spring.application.name=discovery-service
+  - gateway-service.yml → for service with spring.application.name=gateway-service
+  - hello-world.yml → for service with spring.application.name=hello-world
+- For environment-specific configs:
+  - discovery-service-dev.yml
+  - discovery-service-prod.yml
+- If profile is active=dev, Config Server will look for discovery-service-dev.yml first, else fallback to discovery-service.yml.
+
+4. How It Works
+- Microservice starts → contacts Config Server at http://localhost:8089.
+- Sends its application name + profile.
+- Config Server searches for matching file in config folder.
+- Loads configuration and injects into the microservice at startup.
+
+5. Dependencies
+- Config Server Project:
+  - spring-cloud-config-server
+- Client Microservices:
+  - spring-cloud-starter-config
+- Optional: spring-boot-starter-actuator for monitoring endpoints.
+
+6. Client Configuration (bootstrap.yml)
+spring:
+application:
+name: discovery-service
+cloud:
+config:
+uri: http://localhost:8089
+
+
+
+7. Profiles
+- Profiles allow environment-specific configurations.
+- Example:
+  - discovery-service-dev.yml → used when profile=dev
+  - discovery-service-prod.yml → used when profile=prod
+- Default file (discovery-service.yml) is used if no profile-specific file exists.
+
+8. Typical Flow
+- Config Server starts on port 8089.
+- Microservice (e.g., gateway-service) starts.
+- It reads bootstrap.yml → contacts Config Server.
+- Config Server returns gateway-service.yml (or gateway-service-dev.yml if profile=dev).
+- Microservice loads configuration and runs with centralized settings.
+
+9. Advantages
+- Centralized configuration management.
+- Easy to change properties without redeploying services.
+- Supports multiple environments (dev, test, prod).
+- Consistency across microservices.
+
+Summary:
+Spring Cloud Config Server centralizes configuration. File names must match the microservice’s application name. Profiles allow environment-specific files. Dependencies include spring-cloud-config-server for the server and spring-cloud-starter-config for clients. Clients use bootstrap.yml to connect to the Config Server.
+
